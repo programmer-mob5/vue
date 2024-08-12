@@ -2,12 +2,11 @@
 import InputPassword from '@/components/common/InputPassword.vue';
 import InputText from '@/components/common/InputText.vue';
 import LogoBase from '@/components/common/LogoBase.vue';
-import router from '@/router';
 import UserServices from '@/services/users.service';
 import { ToastMessageOptions } from 'primevue/toast';
 import { inject } from 'vue';
 import { ref } from 'vue';
-import verifyUserLoggedIn from '@/utils/users/verifyUserLoggedIn.util';
+import router from '@/router';
 
 const inputValue = ref({
   email: '',
@@ -26,13 +25,7 @@ const submitLogin = async () => {
       otp: null,
     });
     localStorage.setItem('user', JSON.stringify(data.data));
-    if (showToastInject) {
-      showToastInject({
-        severity: 'success',
-        detail: 'Succcessssss',
-      });
-    }
-    router.push('/assets');
+    window.location.reload();
   } catch (error) {
     if (showToastInject) {
       showToastInject({

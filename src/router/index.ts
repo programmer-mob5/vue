@@ -4,12 +4,18 @@ import LayoutAuth from '@/layout/LayoutAuth.vue';
 import LayoutAssets from '@/layout/LayoutAssets.vue';
 import Components from '@/views/Components.vue';
 import getUserData from '@/utils/getUserData.utils';
+import verifyUserLoggedIn from '@/utils/users/verifyUserLoggedIn.util';
 
 const routes: Readonly<RouteRecordRaw[]> = [
   {
     path: '/',
     component: LayoutAuth,
     redirect: '/login',
+    beforeEnter: () => {
+      if (getUserData) {
+        router.push('/assets');
+      }
+    },
     children: [
       {
         path: '/login',
@@ -22,12 +28,17 @@ const routes: Readonly<RouteRecordRaw[]> = [
   {
     path: '/assets',
     component: LayoutAssets,
-    beforeEnter: (to, from) => {
-      if (getUserData !== null) {
-        return true;
+    beforeEnter: async (to, from) => {
+      try {
+        const res = await verifyUserLoggedIn(getUserData.token);
+        if (!res) {
+          router.push('/');
+        }
+        return res;
+      } catch (error) {
+        router.push('/');
+        return false;
       }
-      router.push('/');
-      return false;
     },
     children: [
       {

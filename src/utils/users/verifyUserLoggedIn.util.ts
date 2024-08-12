@@ -6,7 +6,12 @@ const verifyUserLoggedIn = async (token: string = getUserData.token) => {
     return false;
   }
   try {
-    await UserServices.authVerifyToken(token);
+    await UserServices.login({
+      email: null,
+      otp: null,
+      password: null,
+      jwt: token,
+    });
     return true;
   } catch (error) {
     return false;

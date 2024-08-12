@@ -1,6 +1,6 @@
 interface LoginRequestBody {
-  email: string;
+  email: string |null;
   otp: string | null;
-  password: string;
+  password: string |null;
   jwt: string | null;
 }

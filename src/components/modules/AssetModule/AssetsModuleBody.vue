@@ -3,44 +3,76 @@ import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import Tag from 'primevue/tag';
 import AssetsModuleAction from './AssetsModuleAction.vue';
-defineProps<{
-  assets: {
-    code: string;
-  }[];
+import AssetsModel from '@/dto/assets/model/AssetsModel';
+import Button from 'primevue/button';
+import Paginator from 'primevue/paginator';
+
+const props = defineProps<{
+  assets: AssetsModel[] | undefined;
+  totalRecords: number | undefined;
 }>();
 </script>
 
 <template>
-  <div class="card p-[24px] mt-[8px] bg-generalSidebar rounded-lg">
-    <DataTable class="mt-[24px]" :value="assets">
-      <Column field="code" sortable header="Assets"></Column>
-      <Column field="code" sortable header="Group">
+  <div class="card p-6 mt-2 bg-generalSidebar rounded-lg">
+    <div class="flex items-center justify-end gap-2 mt-6">
+      <div class="flex items-center gap-1">
+        <Button severity="secondary" outlined aria-label="Bookmark">
+          <img
+            alt="Search Toolbar"
+            src="@/assets/img/icons/toolbar/toolbar_search.svg"
+          />
+        </Button>
+        <Button severity="secondary" outlined aria-label="Bookmark">
+          <img
+            alt="Search Toolbar"
+            src="@/assets/img/icons/toolbar/toolbar_filter.svg"
+          />
+        </Button>
+      </div>
+
+      <Button label="Register" severity="info">
+        <template #icon>
+          <img
+            alt="Search Toolbar"
+            src="@/assets/img/icons/toolbar/toolbar_add.svg"
+          />
+        </template>
+      </Button>
+    </div>
+
+    <DataTable class="mt-2" :value="assets">
+      <Column field="assetsName" sortable header="Assets"></Column>
+      <Column field="groupName" sortable header="Group">
         <template #body="slotProps">
-          <Tag severity="info" :value="slotProps.data.code" />
+          <Tag severity="info" :value="slotProps.data.groupName" />
         </template>
       </Column>
-      <Column field="code" sortable header="Category">
+      <Column field="category" sortable header="Category">
         <template #body="slotProps">
-          <Tag severity="info" :value="slotProps.data.code" /> </template
+          <Tag severity="info" :value="slotProps.data.category" /> </template
       ></Column>
-      <Column field="code" sortable header="Brand">
+      <Column field="brand" sortable header="Brand">
         <template #body="slotProps">
-          <Tag severity="secondary" :value="slotProps.data.code" /> </template
+          <Tag severity="secondary" :value="slotProps.data.brand" /> </template
       ></Column>
-      <Column field="code" sortable header="Model/Type">
+      <Column field="moderOrType" sortable header="Model/Type">
         <template #body="slotProps">
-          <Tag severity="secondary" :value="slotProps.data.code" />
+          <Tag severity="secondary" :value="slotProps.data.moderOrType" />
         </template>
       </Column>
-      <Column field="code" sortable header="Alias Name">
+      <Column field="aliasName" sortable header="Alias Name">
         <template #body="slotProps">
-          <!-- <div class="flex item-center gap-[9px]">
-            <p class="text-xs font-medium">{{ slotProps.data.code }}</p>
-            <img src="@/assets/img/icons/detail_menu.svg" alt="" />
-          </div> -->
-          <AssetsModuleAction :textValue="slotProps.data.code" />
+          <AssetsModuleAction :textValue="slotProps.data.aliasName" />
         </template>
       </Column>
     </DataTable>
+    <div class="mt-3">
+      <Paginator 
+      class="flex justify-start "
+      :total-records="totalRecords" :rows="10"
+      :rows-per-page-options="[10,25,50,100]"
+       />
+    </div>
   </div>
 </template>

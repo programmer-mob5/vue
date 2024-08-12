@@ -1,8 +1,4 @@
-export default interface LoginResponse {
-  data: Data;
-}
-
-interface Data {
+export default interface UserData {
   _id: string;
   company: string;
   companyName: string;

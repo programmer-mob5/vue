@@ -2,7 +2,7 @@ export default {
   root: ({ props }) => ({
     class: [
       //Size and Shape
-      'w-96 rounded-md',
+      'w-[496px] rounded-md ',
 
       // Positioning
       {
@@ -14,7 +14,13 @@ export default {
   message: ({ props }) => ({
     class: [
       'mb-4 rounded-md w-full',
-      'border border-transparent',
+      'border-l-4',
+      {
+        'border-toastDangerText': props.message.severity == 'error',
+      },
+      {
+        'border-toastSuccessText': props.message.severity == 'success',
+      },
       'backdrop-blur-[10px] shadow-md',
 
       // Colors
@@ -69,6 +75,7 @@ export default {
   }),
   messageIcon: ({ props }) => ({
     class: [
+      'invisible',
       // Sizing and Spacing
       props.message.severity === 'contrast' ||
       props.message.severity === 'secondary'

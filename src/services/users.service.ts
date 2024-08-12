@@ -1,10 +1,11 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import { getBaseURL } from '@/utils/getBaseURL.util';
-import { ExamplePutBody } from '@/dto/example.dto';
 import LoginResponse from '@/dto/auth/response/LoginResponse.dto';
+import UserData from '@/dto/auth/model/UserDataModel.dto';
 
 const API = ({ headers = {}, params = {} } = {}): AxiosInstance => {
-  const user : LoginResponse = JSON.parse(localStorage.getItem('user') as string) ?? {};
+  const user: UserData =
+    JSON.parse(localStorage.getItem('user') as string) ?? {};
   const BASE_URL = getBaseURL('APP_EXAMPLE_API');
 
   const instance = axios.create({
@@ -21,19 +22,13 @@ const API = ({ headers = {}, params = {} } = {}): AxiosInstance => {
 };
 
 const UserServices = {
-  getData: (): Promise<AxiosResponse> => {
-    return API().get('/');
-  },
-
-  putData: (body: ExamplePutBody): Promise<AxiosResponse> => {
-    return API().put('/', body);
-  },
-  
   login: (body: LoginRequestBody): Promise<AxiosResponse<LoginResponse>> => {
     return API().post('/auth/login', body);
   },
+
+  authVerifyToken: (token: string): Promise<AxiosResponse> => {
+    return API().get(`/auth/verify-token/${token}`);
+  },
 };
-
-
 
 export default UserServices;

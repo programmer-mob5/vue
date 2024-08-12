@@ -11,11 +11,13 @@ module.exports = {
         onFieldBackground: '#55B7FE',
         primary500: '#0063F7',
         surfaceVariant2: '#EBEAF0',
+        datatableHeaderCell: '#B7E1FF',
 
         generalSidebar: '#FFFFFF',
         generalText: '#201E29',
         generalTextLabel: '#201E29',
         generalBreadCrumb:'#6C688D',
+        generalTableHeadText:'#201E29',
 
         fieldBackground: '#FFFFFF',
         fieldBorder: '#B5B3C7',

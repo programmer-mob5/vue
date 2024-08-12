@@ -45,11 +45,7 @@ const language: MenuItem[] = [
       </div>
       <ThemeSwitch class="ml-[8px]" />
       <div class="flex items-center gap-[8px]">
-        <SplitButton
-          :model="language"
-          class="border-none bg-transparent"
-          outlined
-        >
+        <SplitButton :model="language" class="border-none bg-transparent" text>
           <span class="flex items-center font-bold">
             <img
               alt="logo"

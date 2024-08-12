@@ -132,7 +132,7 @@ export default {
         // Color
         (props.sortable === '' || props.sortable) && context.sorted
           ? 'bg-highlight'
-          : 'bg-surface-50 text-surface-700 dark:text-white/80 dark:bg-surface-800',
+          : 'bg-datatableHeaderCell text-generalTableHeadText dark:text-white/80 dark:bg-surface-800',
         'border-surface-200 dark:border-surface-700 ',
 
         // States

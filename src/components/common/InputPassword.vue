@@ -17,6 +17,7 @@ const inputDataModel = defineModel();
           :feedback="false"
           class="w-full bg-fieldBackground"
           toggleMask
+          fluid
         />
       </div>
     </div>

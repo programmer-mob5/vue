@@ -2,11 +2,14 @@ import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import { getBaseURL } from '@/utils/getBaseURL.util';
 import { ExamplePutBody } from '@/dto/example.dto';
 import LoginResponse from '@/dto/auth/response/LoginResponse.dto';
+import UserData from '@/dto/auth/model/UserDataModel.dto';
+import GetAssetsResponse from '@/dto/assets/response/GetAssetsResponse.dto';
+import GetAssetsOptionsResponse from '@/dto/assets/response/GetAssetsOptionsResponse.dto';
 
 const API = ({ headers = {}, params = {} } = {}): AxiosInstance => {
-  const user: LoginResponse =
+  const user: UserData =
     JSON.parse(localStorage.getItem('user') as string) ?? {};
-  const BASE_URL = getBaseURL('APP_EXAMPLE_API');
+  const BASE_URL = getBaseURL('APP_ASSETS_API');
 
   const instance = axios.create({
     baseURL: `${BASE_URL}/v2`,
@@ -22,9 +25,13 @@ const API = ({ headers = {}, params = {} } = {}): AxiosInstance => {
 };
 
 const AssetsServices = {
-    getAssets: () => {
-        API().get('assets')
-    }
+  getAssets: (): Promise<AxiosResponse<GetAssetsResponse>> => {
+    return API().get('/assets?page=1&limit=10');
+  },
+
+  getAssetsOpations: (): Promise<AxiosResponse<GetAssetsOptionsResponse>> => {
+    return API().get('/assets/options');
+  },
 };
 
 export default AssetsServices;

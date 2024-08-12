@@ -4,14 +4,18 @@ import InputText from '@/components/common/InputText.vue';
 import LogoBase from '@/components/common/LogoBase.vue';
 import router from '@/router';
 import UserServices from '@/services/users.service';
-import { ref, watch } from 'vue';
+import { ToastMessageOptions } from 'primevue/toast';
+import { inject } from 'vue';
+import { ref } from 'vue';
+import verifyUserLoggedIn from '@/utils/users/verifyUserLoggedIn.util';
 
 const inputValue = ref({
   email: '',
   password: '',
 });
 
-const toastVisibility = ref(false);
+const showToastInject =
+  inject<(params: ToastMessageOptions) => {}>('showToast');
 
 const submitLogin = async () => {
   try {
@@ -21,9 +25,23 @@ const submitLogin = async () => {
       jwt: null,
       otp: null,
     });
-    localStorage.setItem('user', JSON.stringify(data));
+    localStorage.setItem('user', JSON.stringify(data.data));
+    if (showToastInject) {
+      showToastInject({
+        severity: 'success',
+        detail: 'Succcessssss',
+      });
+    }
     router.push('/assets');
-  } catch (error) {}
+  } catch (error) {
+    if (showToastInject) {
+      showToastInject({
+        severity: 'error',
+        detail:
+          'Error, failed to login. Please check your connection and try again.',
+      });
+    }
+  }
 };
 </script>
 

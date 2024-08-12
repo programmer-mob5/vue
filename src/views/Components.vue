@@ -2,7 +2,10 @@
 import ToastNotif from '@/components/common/ToastNotif.vue';
 import ModalConfirmation from '@/components/common/ModalConfirmation.vue';
 import { ToastNotifVariant } from '@/types/ToastNotifVariant.type';
+import Select from 'primevue/select';
 </script>
+
+
 
 <template>
   <div class="flex flex-col gap-[20px]">
@@ -17,5 +20,8 @@ import { ToastNotifVariant } from '@/types/ToastNotifVariant.type';
       />
     </div>
     <div><ModalConfirmation /></div>
+    <div>
+      <Select filter checkmark/>
+    </div>
   </div>
 </template>
